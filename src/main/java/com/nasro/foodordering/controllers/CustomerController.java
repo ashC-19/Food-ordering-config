@@ -32,7 +32,7 @@ public class CustomerController {
 
 	@PostMapping(value = "/addCustomer")
 	public CustomerModel addNewCustomer( @RequestBody CustomerModel customerPayload) {
-
+		
 		LOGGER.info("-------CustomerController /addNewCustomer()---------started");		
 		CustomerModel respCustomerModel=customerService.addCustomer(customerPayload);
 		LOGGER.info("-------CustomerController /addNewCustomer()---------ended");
