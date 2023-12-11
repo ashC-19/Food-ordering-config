@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -37,6 +38,11 @@ public class CustomerEntity {
 	@JoinColumn(name="fk_customer_id",referencedColumnName="customer_id")
 	private List<AddressEntity> addresses;
 
+	@OneToOne(cascade=CascadeType.ALL)
+   @JoinColumn(name="fk_customerdetail_id")
+	private CustomerDetailsEntity customerDetails;
+	
+	
 	public CustomerEntity() {
 		super();
 	}
@@ -77,6 +83,14 @@ public class CustomerEntity {
 
 	public void setAddresses(List<AddressEntity> addresses) {
 		this.addresses = addresses;
+	}
+
+	public CustomerDetailsEntity getCustomerDetails() {
+		return customerDetails;
+	}
+
+	public void setCustomerDetails(CustomerDetailsEntity customerDetails) {
+		this.customerDetails = customerDetails;
 	}
 	
 	

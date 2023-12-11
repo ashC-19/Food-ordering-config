@@ -3,10 +3,12 @@ package com.nasro.foodordering.models;
 import java.util.List;
 
 import com.nasro.foodordering.entities.AddressEntity;
+import com.nasro.foodordering.entities.CustomerDetailsEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 
 public class CustomerModel {
@@ -20,6 +22,10 @@ public class CustomerModel {
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_customer_id",referencedColumnName="customer_id")
 	private List<AddressModel> addresses;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="fk_customerdetail_id")
+	private CustomerDetailModel customerDetails;
 
 	public Integer getCustomerId() {
 		return customerId;
@@ -51,6 +57,14 @@ public class CustomerModel {
 
 	public void setAddresses(List<AddressModel> addresses) {
 		this.addresses = addresses;
+	}
+
+	public CustomerDetailModel getCustomerDetails() {
+		return customerDetails;
+	}
+
+	public void setCustomerDetails(CustomerDetailModel customerDetails) {
+		this.customerDetails = customerDetails;
 	}
 	
 	
