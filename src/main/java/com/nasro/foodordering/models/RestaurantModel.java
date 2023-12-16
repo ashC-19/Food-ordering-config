@@ -2,6 +2,10 @@ package com.nasro.foodordering.models;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+
 public class RestaurantModel {
 
 	private Long restaurantId;
@@ -14,6 +18,8 @@ public class RestaurantModel {
 	
 	private String mobileNum;
 	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="fk_restaurant_id",referencedColumnName="restaurant_id")
 	private List<AddressModel> addresses;
 
 	public Long getRestaurantId() {
