@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nasro.foodordering.entities.CustomerEntity;
+import com.nasro.foodordering.entities.MenuEntity;
 import com.nasro.foodordering.entities.RestaurantEntity;
 import com.nasro.foodordering.models.CustomerModel;
+import com.nasro.foodordering.models.MenuModel;
 import com.nasro.foodordering.models.RestaurantModel;
 import com.nasro.foodordering.repositories.RestaurantantRepository;
 import com.nasro.foodordering.services.RestaurantService;
@@ -35,10 +37,14 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public RestaurantModel addRestaurant(RestaurantModel restaurantModel) {
 		
-		RestaurantEntity entity=modelMapper.map(restaurantModel, RestaurantEntity.class);
-		RestaurantEntity savedEntity=restaurantantRepository.save(entity);
-		RestaurantModel respModel=modelMapper.map(savedEntity,RestaurantModel.class);
-		return respModel;
+		RestaurantEntity restaurantEntity = modelMapper.map(restaurantModel, RestaurantEntity.class);
+		for (MenuModel menuModel : restaurantModel.getMenuItems()) {
+	        MenuEntity menuEntity = modelMapper.map(menuModel, MenuEntity.class);
+	        menuEntity.setRestaurant(restaurantEntity);
+	    }
+	    RestaurantEntity savedEntity = restaurantantRepository.save(restaurantEntity);
+	    RestaurantModel respModel = modelMapper.map(savedEntity, RestaurantModel.class);
+	    return respModel;
 	}
 
 

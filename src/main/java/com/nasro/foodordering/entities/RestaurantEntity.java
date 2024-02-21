@@ -1,5 +1,6 @@
 package com.nasro.foodordering.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -36,6 +37,9 @@ public class RestaurantEntity {
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_restaurant_id",referencedColumnName="restaurant_id")
 	private List<AddressEntity> addresses;
+	
+	@OneToMany(cascade=CascadeType.ALL,mappedBy = "restaurant")
+	private List<MenuEntity> menuItems=new ArrayList<>();
 
 	public RestaurantEntity(String restaurantName, Double rating, String email, String mobileNum,
 			List<AddressEntity> addresses) {
@@ -97,6 +101,14 @@ public class RestaurantEntity {
 
 	public void setAddresses(List<AddressEntity> addresses) {
 		this.addresses = addresses;
+	}
+
+	public List<MenuEntity> getMenuItems() {
+		return menuItems;
+	}
+
+	public void setMenuItems(List<MenuEntity> menuItems) {
+		this.menuItems = menuItems;
 	}
 	
 	
