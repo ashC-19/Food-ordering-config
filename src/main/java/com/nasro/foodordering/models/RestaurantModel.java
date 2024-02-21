@@ -1,6 +1,10 @@
 package com.nasro.foodordering.models;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.nasro.foodordering.entities.MenuEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.JoinColumn;
@@ -21,6 +25,10 @@ public class RestaurantModel {
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_restaurant_id",referencedColumnName="restaurant_id")
 	private List<AddressModel> addresses;
+	
+	@OneToMany(cascade=CascadeType.ALL,mappedBy = "restaurant")
+	@JsonManagedReference
+	private List<MenuModel> menuItems=new ArrayList<>();
 
 	public Long getRestaurantId() {
 		return restaurantId;
@@ -68,6 +76,14 @@ public class RestaurantModel {
 
 	public void setAddresses(List<AddressModel> addresses) {
 		this.addresses = addresses;
+	}
+
+	public List<MenuModel> getMenuItems() {
+		return menuItems;
+	}
+
+	public void setMenuItems(List<MenuModel> menuItems) {
+		this.menuItems = menuItems;
 	}
 	
 	
